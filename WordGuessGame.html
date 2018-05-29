@@ -43,7 +43,7 @@
     let win = 0;
     let losses = 0;
     let tie = 0;
-    let guessesLeft = 'to be updated from random selected word from the wordsArray';
+    let guessesLeft = 'to be updated...';
     let computerChoice = "";
     let arr = [];
     let randomWord = "";
@@ -61,66 +61,73 @@
       //count chars in the selected word
       numOfChar = rdmWord.length;
       console.log('number of chars is: ' + numOfChar);
-      for (i = 0; i <= rdmWord.length; i++){
-        console.log(rdmWord.charAt(i));
+      
+      let str = rdmWord;
+      for (i = 0; i <= rdmWord.length; i++) {
+        str = str.replace(str.charAt(i), '-');
+        console.log('array of chars: ' + str);
       }
-      /* $('#wordPlaceHolder').html =  */
+      
     }
 
     function displayWordPlaceHolder(myWord) {
 
     }
     ///////////////////////////////////////////////////////////
-    // This function is run whenever the user presses a key.
-    document.onkeyup = function (event) {
-
+    document.onkeydown = function (event) {
       //select a random word from the 'words' array
       selectRandomItem(words);
 
       countAndDisplayCharaters(randomElement);
-      /* for (i = 0; i <= numOfChar; i++) { */
 
-        document.getElementById('noOfGuessesLeft').innerHTML = "Guesses left: " + guessesLeft;
-        // Determines which key was pressed.
-        let userChoice = event.key;
-
-        guessedLetters.push(" " + userChoice);
-        console.log('your guesses so far: ' + guessedLetters);
-
-        // remove selected element from the original array and output the shortened array
-        let index = letters.indexOf(userChoice);
-        console.log('index of userchoice: ' + index);
-        if (letters.includes(userChoice)) {
-          remainingLetters = letters.splice(index, 1);
-          console.log('remaining letters: ' + letters);
-        } else {
-          console.log('remaining letters: ' + letters);
-        }
+    }
 
 
-        console.log('remaining letters: ' + remainingLetters);
-        guessesLeft--;
-      }
+    // This function is run whenever the user presses a key.
+    document.onkeyup = function (event) {
 
-      //.log('current counter is: ' + guessesLeft);
-      //console.log('user choice: ' + userChoice);
 
       document.getElementById('noOfGuessesLeft').innerHTML = "Guesses left: " + guessesLeft;
+      // Determines which key was pressed.
+      let userChoice = event.key;
 
-
-      //document.getElementById('yourGuess').innerHTML = "Your Guesses so far: " + arr;
-
-
+      guessedLetters.push(" " + userChoice);
       console.log('your guesses so far: ' + guessedLetters);
 
+      // remove selected element from the original array and output the shortened array
+      let index = letters.indexOf(userChoice);
+      console.log('index of userchoice: ' + index);
+      if (letters.includes(userChoice)) {
+        remainingLetters = letters.splice(index, 1);
+        console.log('remaining letters: ' + letters);
+      } else {
+        console.log('remaining letters: ' + letters);
+      }
+
+
+      console.log('remaining letters: ' + remainingLetters);
+      guessesLeft--;
+    }
+
+    //.log('current counter is: ' + guessesLeft);
+    //console.log('user choice: ' + userChoice);
+
+    document.getElementById('noOfGuessesLeft').innerHTML = "Guesses left: " + guessesLeft;
+
+
+    //document.getElementById('yourGuess').innerHTML = "Your Guesses so far: " + arr;
+
+
+    console.log('your guesses so far: ' + guessedLetters);
 
 
 
-      /* if (guessesLeft === 0) {
-        arr.length = 0;
-        return guessesLeft = 9;
-      } */
-    
+
+    /* if (guessesLeft === 0) {
+      arr.length = 0;
+      return guessesLeft = 9;
+    } */
+
 
     function randomizeChoice() {
       computerChoice = letters[Math.floor(Math.random() * letters.length)];
