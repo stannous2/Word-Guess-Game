@@ -67,18 +67,17 @@
         str = str.replace(str.charAt(i), '-');
         console.log('array of chars: ' + str);
       }
-      
     }
 
-    function displayWordPlaceHolder(myWord) {
+    /* function displayWordPlaceHolder(myWord) {
 
-    }
+    } */
     ///////////////////////////////////////////////////////////
     document.onkeydown = function (event) {
       //select a random word from the 'words' array
       selectRandomItem(words);
 
-      countAndDisplayCharaters(randomElement);
+      countAndDisplayCharaters(randomWord);
 
     }
 
@@ -89,7 +88,7 @@
 
       document.getElementById('noOfGuessesLeft').innerHTML = "Guesses left: " + guessesLeft;
       // Determines which key was pressed.
-      let userChoice = event.key;
+      let userChoice = event.key.toLowerCase();
 
       guessedLetters.push(" " + userChoice);
       console.log('your guesses so far: ' + guessedLetters);

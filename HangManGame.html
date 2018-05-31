@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,58 +9,133 @@
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
     <!-- <script src="main.js"></script> -->
 </head>
+
 <body>
 
-         
-        <h1>The Hang Man Game</h1>
 
-        <h4>Press any key to start!</h4>
-        <br>
-        <br>
-        <div id="wins">Wins: </div>
-        <br>
-        <br>
-        <div id="currentWord">Current Word...</div>
-        <br>
-        <br>
-        <div class="remainingGuesses">Number of Guesses Remaining: </div>
-        <br>
-        <br>
-        <div class="guessedLetters">Letters Already Guessed...</div>
+    <h1>The Hang Man Game</h1>
 
-        
+    <h4>Press any key to start!</h4>
+    <br>
+    <br>
+    <div id="wins">Wins: </div>
+    <br>
+    <br>
+    <div id="currentWord">Current Word...</div>
+    <br>
+    <div id="currentWordHolder"></div>
+    <br>
+    <div>Number of Guesses Remaining: </div>
+    <br>
+    <div id="numOfGuessesRemaining"></div>
+    <br>
+    <br>
+    <div id="guessedLetters">Letters Already Guessed...</div>
 
-<!-- 
-        6. Wins: (# of times user guessed the word correctly).
-        
-           * If the word is `madonna`, display it like this when the game starts: `_ _ _ _ _ _ _`.
-                (if the word from the dictionary has 6 letters then displays 6 '_')
-        
-           * As the user guesses the correct letters, reveal them: `m a d o _  _ a`.
-        
-        7. Number of Guesses Remaining: (# of guesses remaining for the user).
-        
-        8. Letters Already Guessed: (Letters the user has guessed, displayed like `L Z Y H`).
-        
-        9. After the user wins/loses the game should automatically choose another word and make the user play it.
-        --> 
+
+
+
     <script>
-    startGame();
+        // Array to hold words
+        let words = ['dog', 'cat', 'horse', 'buffalo', 'bird', 'elephant', 'monkey'];
 
-    function startGame(){
-        document.addEventListener("click", () => {
-            console.log("you just clicked to start the game...");
+        // Creates an a-z array.
+        let letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
+            "r", "s", "t", "u", "v", "w", "x", "y", "z"
+        ];
 
-        });
-    }
-    
-    
-    
-    
+        // Array to hold the remaining unused letters
+        let guessedLetters = [];
+        let remainingLetters = [];
+
+        let win = 0;
+        let losses = 0;
+        let tie = 0;
+        let guessesLeft = 'to be updated...';
+        let computerChoice = "";
+        let arr = [];
+        let randomWord = "";
+        let numOfChar = "";
+        let remainingGuesses = 0;
+        let guessedCount = 0;
+
+
+        startGame();
+
+
+
+
+
+        function startGame() {
+            document.addEventListener("click", () => {
+                console.log("you just clicked to start the game...");
+
+                selectRandomItem(words);
+                countAndDisplayCharaters(randomWord);
+                getGussedLetters();
+                getRemainingGuesses();
+            });
+
+        }
+
+        // this function 
+
+        // this function generates the number of guesses remaining
+        function getRemainingGuesses() {
+            remainingGuesses = numOfChar + 10;
+            remainingGuesses = remainingGuesses - guessedCount;
+            console.log('Number of guesses remaining is: ' + remainingGuesses);
+            
+            // corrected guesses are added to the 'correctedGuesses' array and display to the placeholder
+
+            // if user selects a char that is already selected then nothing changes
+
+            document.getElementById('numOfGuessesRemaining').innerHTML = remainingGuesses;
+        }
+
+        function getGussedLetters() {
+            document.onkeyup = function (event) {
+                let userChoice = event.key.toLowerCase();
+                if (!guessedLetters.includes(userChoice)) {
+                    guessedLetters.push(userChoice);
+                    guessedCount++;
+                    console.log('your guesses so far: ' + guessedLetters);
+                    document.getElementById('guessedLetters').innerHTML = 'Letters Already Guessed: ' +
+                        guessedLetters;
+                }
+                // remove selected element from the original array and output the shortened array
+                let index = letters.indexOf(userChoice);
+                console.log('index of userchoice: ' + index);
+                if (letters.includes(userChoice)) {
+                    remainingLetters = letters.splice(index, 1);
+                    console.log('remaining letters: ' + letters);
+                } else {
+                    console.log('remaining letters: ' + letters);
+                }
+
+            };
+        }
+
+        // this function will randomly select an item from an array
+        function selectRandomItem(myArray) {
+            randomWord = myArray[Math.floor(Math.random() * myArray.length)];
+            console.log('Random selected element is: ' + randomWord);
+        };
+
+        // this function counts the number of chars in a word
+        function countAndDisplayCharaters(word) {
+            //count chars in the selected word
+            numOfChar = word.length;
+            console.log('number of chars is: ' + numOfChar);
+
+            let str = word;
+            for (i = 0; i < word.length; i++) {
+                str = str.replace(str.charAt(i), '-');
+                console.log('array of chars: ' + str);
+            };
+            document.getElementById('currentWordHolder').innerHTML = str;
+        }
     </script>
 </body>
+
 </html>
-
-
-
-
