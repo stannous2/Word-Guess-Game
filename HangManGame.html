@@ -96,12 +96,15 @@
         function getGussedLetters() {
             document.onkeyup = function (event) {
                 let userChoice = event.key.toLowerCase();
-                if (!guessedLetters.includes(userChoice)) {
+                if (!guessedLetters.includes(userChoice) && remainingGuesses > 0) {
                     guessedLetters.push(userChoice);
-                    guessedCount++;
                     console.log('your guesses so far: ' + guessedLetters);
                     document.getElementById('guessedLetters').innerHTML = 'Letters Already Guessed: ' +
                         guessedLetters;
+                    guessedCount++;
+                    getRemainingGuesses();
+                    console.log('guessed count: ' + guessedCount);
+                    compareResults(userChoice, randomWord);
                 }
                 // remove selected element from the original array and output the shortened array
                 let index = letters.indexOf(userChoice);
@@ -115,7 +118,12 @@
 
             };
         }
-
+        // this function to compare the user selection with the selected word
+        function compareResults(userSelection, randWord) {
+            if(randomWord.includes(userSelection)) {
+                console.log('the selection ' + userSelection + ' matches with one char of the random word...');
+            }
+        } 
         // this function will randomly select an item from an array
         function selectRandomItem(myArray) {
             randomWord = myArray[Math.floor(Math.random() * myArray.length)];
