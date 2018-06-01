@@ -58,6 +58,7 @@
         let numOfChar = "";
         let remainingGuesses = 0;
         let guessedCount = 0;
+        let correctedGuesses = [];
 
 
         startGame();
@@ -120,9 +121,20 @@
         }
         // this function to compare the user selection with the selected word
         function compareResults(userSelection, randWord) {
-            if(randomWord.includes(userSelection)) {
-                console.log('the selection ' + userSelection + ' matches with one char of the random word...');
-            }
+        	for(i = 0; i < randWord.length; i++){
+        		if (randWord[i] === userSelection) {
+        			//correctedGuesses.push(userSelection);
+        			//console.log('the corrected Guesses are: ' + correctedGuesses);
+        			correctedGuesses.splice(i, 0, userSelection);
+        			console.log("index of userSelection in word: " + i);
+                	console.log('the userSelection is inserted at index: ' + correctedGuesses);
+        		}
+        	}
+            /*if(randomWord.includes(userSelection)) {
+            	correctedGuesses.push(userSelection);
+                console.log('the corrected Guesses are: ' + correctedGuesses);
+
+            }*/
         } 
         // this function will randomly select an item from an array
         function selectRandomItem(myArray) {
