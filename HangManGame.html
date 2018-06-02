@@ -30,7 +30,7 @@
     <div id="numOfGuessesRemaining"></div>
     <br>
     <br>
-    <div id="guessedLetters">Letters Already Guessed...</div>
+    <div id="lettersAlreadyGuessed">Letters Already Guessed...</div>
 
 
 
@@ -70,7 +70,7 @@
         function startGame() {
             document.addEventListener("click", () => {
                 console.log("you just clicked to start the game...");
-
+                resetAllFields()
                 selectRandomItem(words);
                 countAndDisplayCharaters(randomWord);
                 getGussedLetters();
@@ -100,7 +100,7 @@
                 if (!guessedLetters.includes(userChoice) && remainingGuesses > 0) {
                     guessedLetters.push(userChoice);
                     console.log('your guesses so far: ' + guessedLetters);
-                    document.getElementById('guessedLetters').innerHTML = 'Letters Already Guessed: ' +
+                    document.getElementById('lettersAlreadyGuessed').innerHTML = 'Letters Already Guessed: ' +
                         guessedLetters;
                     guessedCount++;
                     getRemainingGuesses();
@@ -122,19 +122,16 @@
         // this function to compare the user selection with the selected word
         function compareResults(userSelection, randWord) {
         	for(i = 0; i < randWord.length; i++){
+        		if (userSelection === randWord.indexOf[i]) {
+        			
+        		}
+
+
         		if (randWord[i] === userSelection) {
-        			//correctedGuesses.push(userSelection);
-        			//console.log('the corrected Guesses are: ' + correctedGuesses);
         			correctedGuesses.splice(i, 0, userSelection);
         			console.log("index of userSelection in word: " + i);
-                	console.log('the userSelection is inserted at index: ' + correctedGuesses);
         		}
-        	}
-            /*if(randomWord.includes(userSelection)) {
-            	correctedGuesses.push(userSelection);
-                console.log('the corrected Guesses are: ' + correctedGuesses);
-
-            }*/
+        	}            
         } 
         // this function will randomly select an item from an array
         function selectRandomItem(myArray) {
@@ -148,13 +145,20 @@
             numOfChar = word.length;
             console.log('number of chars is: ' + numOfChar);
 
-            let str = word;
+            arr = [word];
             for (i = 0; i < word.length; i++) {
-                str = str.replace(str.charAt(i), '-');
-                console.log('array of chars: ' + str);
+                arr[i] = '-';
             };
-            document.getElementById('currentWordHolder').innerHTML = str;
+            console.log('array of chars: ' + arr.join(''));
+
         }
+
+        function resetAllFields(){
+        	document.getElementById('wins').innerHTML = 'Wins: ' + '';
+        	guessedLetters.length = 0;
+            document.getElementById('lettersAlreadyGuessed').innerHTML = 'Letters Already Guessed...' + guessedLetters;
+                
+            }
     </script>
 </body>
 
